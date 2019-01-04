@@ -1,8 +1,8 @@
-import {Node, INode} from './Node'
+import {Node} from './Node'
 
 export class LinkedList {
-  public head: INode | null
-  public tail: INode | null
+  public head: Node | null
+  public tail: Node | null
 
   constructor() {
     this.head = null;
@@ -12,7 +12,7 @@ export class LinkedList {
   /**
    * 向链表末尾添加一个节点
    * @param {any} value 任意值
-   * @returns {ILinkedList} 当前链表
+   * @returns {LinkedList} 当前链表
    */
   public append(value: any): LinkedList {
     const newNode = new Node(value);
@@ -25,9 +25,9 @@ export class LinkedList {
     }
 
     // 给尾节点的next赋值为newNode
-    (this.tail as INode).next = newNode;
+    (this.tail as Node).next = newNode;
     // 把尾节点设为newNode
-    (this.tail as INode) = newNode;
+    (this.tail as Node) = newNode;
 
     return this;
   }
@@ -35,7 +35,7 @@ export class LinkedList {
   /**
    * 向链表头部添加一个节点
    * @param {any} value 任意值
-   * @returns {ILinkedList} 当前链表
+   * @returns {LinkedList} 当前链表
    */
   public prepend(value: any): LinkedList {
     const newNode = new Node(value);
@@ -57,7 +57,7 @@ export class LinkedList {
    * @param value 查找的值
    * @returns {INode|null} 找到的节点或者null
    */
-  public find(value: any): INode | null {
+  public find(value: any): Node | null {
     let currentNode = this.head;
     while(currentNode !== null && currentNode.value !== value) {
       currentNode = currentNode.next;
@@ -68,7 +68,7 @@ export class LinkedList {
 
 
   // TODO: 未完成
-  public findPrevious(targetNode: INode) {
+  public findPrevious(targetNode: Node) {
     // 假设targetNode === this.head 则没有前置节点
     if(this.head !== null && this.head === targetNode) {
       return null
@@ -98,7 +98,7 @@ export class LinkedList {
    * @param {INode | null} targetNode 插入值的目标节点
    * @param {"before"|"after"} position 插入的位置，
    */
-  insert(value: any, targetNode: INode | null, position: "before" | "after" = "after"): LinkedList | undefined {
+  insert(value: any, targetNode: Node | null, position: "before" | "after" = "after"): LinkedList | undefined {
     if(!value || !targetNode) {
       return;
     }
@@ -162,7 +162,7 @@ export class LinkedList {
     }
 
     // 检查当前tail是否为需要删除的node，如果是，则将tail指向current
-    if((this.tail as INode).value === value) {
+    if((this.tail as Node).value === value) {
       this.tail = currentNode;
     }
 

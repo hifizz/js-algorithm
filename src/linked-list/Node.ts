@@ -1,13 +1,9 @@
-export interface INode {
-  value: any;
-  next: INode | null;
-}
 
-export class Node implements INode {
+export class Node {
   public value: any;
-  public next: INode | null;
+  public next: Node | null;
 
-  constructor(value: any, next: INode | null = null) {
+  constructor(value: any, next: Node | null = null) {
     this.value = value;
     this.next = next;
   }
