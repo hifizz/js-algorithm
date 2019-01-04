@@ -33,9 +33,29 @@ export class LinkedList {
   }
 
   /**
+   * 向链表头部添加一个节点
+   * @param {any} value 任意值
+   * @returns {ILinkedList} 当前链表
+   */
+  public prepend(value: any): LinkedList {
+    const newNode = new Node(value);
+
+    if(!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+    }
+    else {
+      newNode.next = this.head;
+      this.head = newNode;
+    }
+
+    return this;
+  }
+
+  /**
    * 根据value查找节点上第一个与value相等的节点，返回该节点或者null
    * @param value 查找的值
-   * @returns {INode|null}
+   * @returns {INode|null} 找到的节点或者null
    */
   public find(value: any): INode | null {
     let currentNode = this.head;
@@ -150,9 +170,79 @@ export class LinkedList {
   }
 
   /**
+   * 删除头结点
+   * @returns { Node | null } 被删除的头结点或者null
+   */
+  public deleteHead(): Node | null {
+    let deletedNode = null;
+    const headNode = this.head;
+
+    if(headNode !== null) {
+      deletedNode = headNode
+      if(headNode === this.tail) {
+        this.head = null;
+        this.tail = null;
+      } else {
+        this.head = headNode.next ? headNode.next : null;
+      }
+    }
+
+    return deletedNode;
+  }
+
+  /**
+   * 删除尾结点
+   * @returns { Node | null } 被删除的头结点或者null
+   */
+  public deleteTail(): Node | null {
+    let deletedNode = null;
+
+    if(this.head !== null) {
+      if(this.head === this.tail) {
+        deletedNode = this.head;
+        this.head = null;
+        this.tail = null;
+      }
+      else {
+        let currentNode = this.head;
+        while(currentNode.next !== null) {
+          if(currentNode.next.next === null) {
+            deletedNode = currentNode.next.next
+            currentNode.next = null;
+          }
+          else {
+            currentNode = currentNode.next;
+          }
+        }
+        this.tail = currentNode;
+      }
+    }
+
+    return deletedNode;
+  }
+
+  /**
    * 查询链表是否为空
    */
   isEmpty(): boolean {
     return this.head === null;
+  }
+
+  public toArray(): any[] {
+    let result = [];
+    let currentNode = this.head;
+
+    while(currentNode !== null) {
+      result.push(currentNode.value);
+      currentNode = currentNode.next;
+    }
+
+    return result;
+  }
+
+  public toString(handler: (value: any) => string = (value) => {return `${value}`}): string {
+    return this.toArray().map((value) => {
+      return handler(value);
+    }).toString();
   }
 }

@@ -16,6 +16,8 @@ describe("LinkedList class", () => {
     expect(linkedList.tail).toBe(null)
   })
 
+
+
   describe("Method append()", () => {
     it("should be a chain method", () => {
       linkedList.append(1).append(2).append(3);
@@ -53,6 +55,44 @@ describe("LinkedList class", () => {
       linkedList.append(3);
       expect((linkedList.head as Node).value).toBe(1);
       expect((linkedList.tail as Node).value).toBe(3);
+    })
+  })
+
+  describe("helper functions", () => {
+    it("should stringify list correctly", () => {
+      expect(linkedList.toString()).toBe("")
+
+      linkedList.append(1);
+      expect(linkedList.toString()).toBe("1")
+
+      linkedList.append(2).append(3)
+      expect(linkedList.toString()).toBe("1,2,3")
+    })
+
+    it("should toArray correctly", () => {
+      expect(linkedList.toArray()).toEqual([])
+
+      linkedList.append(1);
+      expect(linkedList.toArray()).toEqual([1])
+
+      linkedList.append(2).append(3)
+      expect(linkedList.toArray()).toEqual([1,2,3])
+    })
+  })
+
+  describe("Method prepend()", () => {
+    it("should prepend a node to list head", () => {
+      linkedList.append(1);
+      linkedList.prepend(2);
+
+      expect(linkedList.toString()).toBe("2,1")
+    })
+
+    it("should handle linkedlist.head linkedlist.tail correctly", () => {
+      linkedList.prepend(4).prepend(3).prepend(2).prepend(1).append(5);
+      expect(linkedList.toString()).toBe("1,2,3,4,5")
+      expect((linkedList.head as Node).value).toBe(1)
+      expect((linkedList.tail as Node).value).toBe(5)
     })
   })
 
@@ -125,6 +165,37 @@ describe("LinkedList class", () => {
 
       expect(linkedList.head).toBe(null);
       expect(linkedList.tail).toBe(null);
+    })
+  })
+
+  describe("Method deleteHead", () => {
+    it("should delete head node and handle head & tail correctly", () => {
+      linkedList.append(1).deleteHead();
+
+      expect(linkedList.head).toBe(null)
+      expect(linkedList.tail).toBe(null)
+
+      linkedList.append(1).append(2).append(3).append(4).append(5)
+      linkedList.deleteHead();
+      expect(linkedList.toString()).toBe("2,3,4,5")
+
+      expect((linkedList.head as Node).value).toBe(2);
+      expect((linkedList.tail as Node).value).toBe(5);
+    })
+  })
+
+  describe("Method deleteTail", () => {
+    it("should delete tail node and handle head & tail correctly", () => {
+      linkedList.append(1).deleteTail();
+      expect(linkedList.toString()).toBe("")
+      expect(linkedList.head).toBe(null)
+      expect(linkedList.tail).toBe(null)
+
+      linkedList.append(1).append(2).append(3).append(4).append(5)
+      linkedList.deleteTail();
+      expect(linkedList.toString()).toBe("1,2,3,4")
+      expect((linkedList.head as Node).value).toBe(1);
+      expect((linkedList.tail as Node).value).toBe(4);
     })
   })
 

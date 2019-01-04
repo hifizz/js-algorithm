@@ -4,11 +4,22 @@
 
 ## 功能
 
+已完成：
+
 - append
+- prepend
 - find
 - delete
+- deleteTail
+- deleteHead
 - isEmpty
-- insert(TODO)
+- toString
+- toArray
+
+未完成（WIP）：
+
+- findPrevious
+- insert
 
 ## 复杂度
 
@@ -20,6 +31,8 @@ TODO(时间和空间复杂度)
 
 ## 问题
 
-就目前实现来说，使用TypeScript来实现链表，在实例化链表并append一个值之后，TS并不能推导出链表head不为空，即使我们知道一定不为空。
+1.链表是否需要length属性和引入索引（index）进行position定位（就像JS Array一样有index）
+
+2.就目前实现来说，使用TypeScript来实现链表，在实例化链表并append一个值之后，TS并不能推导出链表head不为空，即使我们知道一定不为空。
 即使在append方法通过一些方法解决这个问题，在append之后并delete这个值，TS还是不能推导出链表的head节点是否为空。
 这个问题需要再一步思考：）
