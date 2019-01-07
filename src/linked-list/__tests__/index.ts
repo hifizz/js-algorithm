@@ -69,8 +69,8 @@ describe('LinkedList class', () => {
       linkedList.append(2).append(3)
       expect(linkedList.toString()).toBe('1,2,3')
 
-      const stringHandler = (value: any) => value;
-      expect(linkedList.toString(stringHandler)).toBe('1,2,3');
+      const stringHandler = (value: any) => value
+      expect(linkedList.toString(stringHandler)).toBe('1,2,3')
     })
 
     it('Method toArray()', () => {
@@ -150,8 +150,8 @@ describe('LinkedList class', () => {
       expect(linkedList.delete).toBeInstanceOf(Function)
     })
 
-    it("should return null if the list is empty()", () => {
-      expect(linkedList.delete(1)).toBe(null);
+    it('should return null if the list is empty()', () => {
+      expect(linkedList.delete(1)).toBe(null)
     })
 
     it('should delete nothing if not found value', () => {
@@ -212,18 +212,16 @@ describe('LinkedList class', () => {
       expect((linkedList.tail as Node).value).toBe(5)
     })
 
-    it("should set head & tail correctly when list have only one node", () => {
+    it('should set head & tail correctly when list have only one node', () => {
       linkedList.append(1).deleteHead()
 
       expect(linkedList.head).toBe(null)
       expect(linkedList.tail).toBe(null)
     })
 
-    it("should return null if the list is empty()", () => {
-      expect(linkedList.deleteHead()).toBe(null);
+    it('should return null if the list is empty()', () => {
+      expect(linkedList.deleteHead()).toBe(null)
     })
-
-
   })
 
   describe('Method deleteTail()', () => {
@@ -245,11 +243,11 @@ describe('LinkedList class', () => {
       expect((linkedList.tail as Node).value).toBe(4)
     })
 
-    it("should return null when list is empty", () => {
-      expect(linkedList.deleteTail()).toBe(null);
+    it('should return null when list is empty', () => {
+      expect(linkedList.deleteTail()).toBe(null)
       linkedList.append(1)
       linkedList.append(2)
-      expect((linkedList.deleteHead() as Node).value).toBe(1);
+      expect((linkedList.deleteHead() as Node).value).toBe(1)
     })
   })
 
@@ -272,7 +270,6 @@ describe('LinkedList class', () => {
   })
 
   describe('Method insert()', () => {
-
     it('should insert value after specified value by default', () => {
       linkedList
         .append(1)
@@ -335,16 +332,40 @@ describe('LinkedList class', () => {
       expect(linkedList.toString()).toBe('1,2,3')
     })
 
-    it("should do nothing when list empty", () => {
+    it('should do nothing when list empty', () => {
       linkedList.insert(5, 3)
       expect(linkedList.toString()).toBe('')
-      expect(linkedList.head) .toBe(null)
+      expect(linkedList.head).toBe(null)
       expect(linkedList.tail).toBe(null)
 
-      linkedList.insert(5, 3, "before")
+      linkedList.insert(5, 3, 'before')
       expect(linkedList.toString()).toBe('')
-      expect(linkedList.head) .toBe(null)
+      expect(linkedList.head).toBe(null)
       expect(linkedList.tail).toBe(null)
+    })
+  })
+
+  describe('Method reversal()', () => {
+    it('should reversal list', () => {
+      linkedList
+        .append(1)
+        .append(2)
+        .append(3)
+      const reversaledList = linkedList.reversal()
+      expect(reversaledList).toBeDefined()
+      expect(reversaledList).toBeInstanceOf(LinkedList)
+      expect(reversaledList.toString()).toBe('3,2,1')
+      expect((reversaledList.head as Node).value).toBe(3)
+      expect((reversaledList.tail as Node).value).toBe(1)
+    })
+
+    it('should do nothing when list is empty', () => {
+      const reversaledList = linkedList.reversal()
+      expect(reversaledList).toBeDefined()
+      expect(reversaledList).toBeInstanceOf(LinkedList)
+      expect(reversaledList.toString()).toBe('')
+      expect(reversaledList.head).toBe(null)
+      expect(reversaledList.tail).toBe(null)
     })
   })
 })
