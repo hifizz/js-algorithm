@@ -36,6 +36,11 @@ describe("Queue", () => {
     expect(queue.toString()).toBe('')
   })
 
+  it("should return null when dequeue from empty queue", () => {
+    const queue = new Queue()
+    expect(queue.dequeue()).toBe(null)
+  })
+
   it("should enqueue/dequeue any data to/from queue", () => {
     const queue = new Queue()
 
