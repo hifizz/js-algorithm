@@ -60,7 +60,7 @@ describe('LinkedList class', () => {
   })
 
   describe('helper functions', () => {
-    it('should stringify list correctly', () => {
+    it('Method toString()', () => {
       expect(linkedList.toString()).toBe('')
 
       linkedList.append(1)
@@ -68,9 +68,12 @@ describe('LinkedList class', () => {
 
       linkedList.append(2).append(3)
       expect(linkedList.toString()).toBe('1,2,3')
+
+      const stringHandler = (value: any) => value;
+      expect(linkedList.toString(stringHandler)).toBe('1,2,3');
     })
 
-    it('should toArray correctly', () => {
+    it('Method toArray()', () => {
       expect(linkedList.toArray()).toEqual([])
 
       linkedList.append(1)
@@ -147,6 +150,10 @@ describe('LinkedList class', () => {
       expect(linkedList.delete).toBeInstanceOf(Function)
     })
 
+    it("should return null if the list is empty()", () => {
+      expect(linkedList.delete(1)).toBe(null);
+    })
+
     it('should delete nothing if not found value', () => {
       linkedList
         .append(1)
@@ -192,23 +199,31 @@ describe('LinkedList class', () => {
 
   describe('Method deleteHead()', () => {
     it('should delete head node and handle head & tail correctly', () => {
-      linkedList.append(1).deleteHead()
-
-      expect(linkedList.head).toBe(null)
-      expect(linkedList.tail).toBe(null)
-
       linkedList
         .append(1)
         .append(2)
         .append(3)
         .append(4)
         .append(5)
-      linkedList.deleteHead()
+      expect((linkedList.deleteHead() as Node).value).toBe(1)
       expect(linkedList.toString()).toBe('2,3,4,5')
 
       expect((linkedList.head as Node).value).toBe(2)
       expect((linkedList.tail as Node).value).toBe(5)
     })
+
+    it("should set head & tail correctly when list have only one node", () => {
+      linkedList.append(1).deleteHead()
+
+      expect(linkedList.head).toBe(null)
+      expect(linkedList.tail).toBe(null)
+    })
+
+    it("should return null if the list is empty()", () => {
+      expect(linkedList.deleteHead()).toBe(null);
+    })
+
+
   })
 
   describe('Method deleteTail()', () => {
@@ -228,6 +243,13 @@ describe('LinkedList class', () => {
       expect(linkedList.toString()).toBe('1,2,3,4')
       expect((linkedList.head as Node).value).toBe(1)
       expect((linkedList.tail as Node).value).toBe(4)
+    })
+
+    it("should return null when list is empty", () => {
+      expect(linkedList.deleteTail()).toBe(null);
+      linkedList.append(1)
+      linkedList.append(2)
+      expect((linkedList.deleteHead() as Node).value).toBe(1);
     })
   })
 
@@ -250,6 +272,7 @@ describe('LinkedList class', () => {
   })
 
   describe('Method insert()', () => {
+
     it('should insert value after specified value by default', () => {
       linkedList
         .append(1)
@@ -300,6 +323,28 @@ describe('LinkedList class', () => {
       expect(linkedList.toString()).toBe('1,2,1,5,3')
       expect((linkedList.head as Node).value).toBe(1)
       expect((linkedList.tail as Node).value).toBe(3)
+    })
+
+    it('should do nothing shen targetValue not in the list', () => {
+      linkedList
+        .append(1)
+        .append(2)
+        .append(3)
+      linkedList.insert(5, 4, 'before')
+
+      expect(linkedList.toString()).toBe('1,2,3')
+    })
+
+    it("should do nothing when list empty", () => {
+      linkedList.insert(5, 3)
+      expect(linkedList.toString()).toBe('')
+      expect(linkedList.head) .toBe(null)
+      expect(linkedList.tail).toBe(null)
+
+      linkedList.insert(5, 3, "before")
+      expect(linkedList.toString()).toBe('')
+      expect(linkedList.head) .toBe(null)
+      expect(linkedList.tail).toBe(null)
     })
   })
 })
