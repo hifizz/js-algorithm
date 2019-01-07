@@ -1,5 +1,9 @@
 import { Node } from './Node'
 
+const stringifyDefault = (value: any) => {
+  return `${value}`
+}
+
 export class LinkedList {
   public head: Node | null
   public tail: Node | null
@@ -76,10 +80,6 @@ export class LinkedList {
     targetValue: any,
     direction: 'before' | 'after' = 'after'
   ): LinkedList | undefined {
-    if (!value || !targetValue) {
-      return
-    }
-
     if (direction === 'after') {
       let currentNode = this.head
 
@@ -172,11 +172,11 @@ export class LinkedList {
 
     if (headNode !== null) {
       deletedNode = headNode
-      if (headNode === this.tail) {
+      if (this.head === this.tail) {
         this.head = null
         this.tail = null
       } else {
-        this.head = headNode.next ? headNode.next : null
+        this.head = headNode.next;
       }
     }
 
@@ -231,11 +231,7 @@ export class LinkedList {
     return result
   }
 
-  public toString(
-    handler: (value: any) => string = value => {
-      return `${value}`
-    }
-  ): string {
+  public toString( handler: (value: any) => string = stringifyDefault ): string {
     return this.toArray()
       .map(value => {
         return handler(value)
