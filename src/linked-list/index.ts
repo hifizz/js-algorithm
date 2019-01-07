@@ -176,7 +176,7 @@ export class LinkedList {
         this.head = null
         this.tail = null
       } else {
-        this.head = headNode.next;
+        this.head = headNode.next
       }
     }
 
@@ -213,6 +213,27 @@ export class LinkedList {
   }
 
   /**
+   * 反转链表
+   */
+  public reversal(): LinkedList {
+    let currentNode = this.head
+    let prevNode = null
+    let nextNode = null
+
+    while (currentNode) {
+      nextNode = currentNode.next
+      currentNode.next = prevNode
+      prevNode = currentNode
+      currentNode = nextNode
+    }
+
+    this.tail = this.head
+    this.head = prevNode
+
+    return this
+  }
+
+  /**
    * 查询链表是否为空
    */
   isEmpty(): boolean {
@@ -231,7 +252,7 @@ export class LinkedList {
     return result
   }
 
-  public toString( handler: (value: any) => string = stringifyDefault ): string {
+  public toString(handler: (value: any) => string = stringifyDefault): string {
     return this.toArray()
       .map(value => {
         return handler(value)
