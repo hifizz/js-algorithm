@@ -1,4 +1,4 @@
-import {Node} from './Node'
+import { Node } from './Node'
 
 export class LinkedList {
   public head: Node | null
@@ -17,7 +17,7 @@ export class LinkedList {
   public append(value: any): LinkedList {
     const newNode = new Node(value);
 
-    if(!this.head) {
+    if (!this.head) {
       this.head = newNode;
       this.tail = newNode;
 
@@ -40,7 +40,7 @@ export class LinkedList {
   public prepend(value: any): LinkedList {
     const newNode = new Node(value);
 
-    if(!this.head) {
+    if (!this.head) {
       this.head = newNode;
       this.tail = newNode;
     }
@@ -59,7 +59,7 @@ export class LinkedList {
    */
   public find(value: any): Node | null {
     let currentNode = this.head;
-    while(currentNode !== null && currentNode.value !== value) {
+    while (currentNode !== null && currentNode.value !== value) {
       currentNode = currentNode.next;
     }
     /** currentNode === null 时会跳出while，直接return */
@@ -70,16 +70,16 @@ export class LinkedList {
   // TODO: 未完成
   public findPrevious(targetNode: Node) {
     // 假设targetNode === this.head 则没有前置节点
-    if(this.head !== null && this.head === targetNode) {
+    if (this.head !== null && this.head === targetNode) {
       return null
     }
 
     let prevNode = null
     let currentNode = this.head;
 
-    if(currentNode !== null) {
-      while(currentNode.next !== null) {
-        if(currentNode.next === targetNode) {
+    if (currentNode !== null) {
+      while (currentNode.next !== null) {
+        if (currentNode.next === targetNode) {
           prevNode = currentNode
         }
         else {
@@ -96,33 +96,54 @@ export class LinkedList {
    * 在目标value节点之后（默认之后）插入值
    * @param {any} value 插入的值
    * @param {INode | null} targetNode 插入值的目标节点
-   * @param {"before"|"after"} position 插入的位置，
+   * @param {"before"|"after"} direction 插入的位置，
    */
-  insert(value: any, targetNode: Node | null, position: "before" | "after" = "after"): LinkedList | undefined {
-    if(!value || !targetNode) {
+  insert(value: any, targetValue: any, direction: "before" | "after" = "after"): LinkedList | undefined {
+    if (!value || !targetValue) {
       return;
     }
 
-    if(position === "after") {
-      const newNode = new Node(value, targetNode.next);
-      targetNode.next = newNode;
-      if (targetNode === this.tail) {
-        this.tail = newNode;
+    if (direction === "after") {
+      let currentNode = this.head;
+
+      while (currentNode !== null && currentNode.value !== targetValue) {
+        currentNode = currentNode.next;
+      }
+
+      if (currentNode) {
+        const newNode = new Node(value, currentNode.next);
+        if (currentNode === this.tail) {
+          this.tail = newNode;
+        }
+        currentNode.next = newNode;
       }
     }
     else {
-      if(this.head) {
-        if(targetNode === this.head) {
-          const newNode = new Node(value, this.head.next);
+      let currentNode = this.head;
+
+      if (currentNode) {
+        if (targetValue === currentNode.value) {
+          const newNode = new Node(value, this.head)
           this.head = newNode;
-        }
-        else {
-          const prevNode = this.findPrevious(targetNode);
-          if(prevNode) {
-            prevNode.next = new Node(value, prevNode.next);
+        } else {
+
+          let prevNode = null;
+          while (currentNode.next !== null) {
+            if (currentNode.next.value === targetValue) {
+              prevNode = currentNode;
+              break;
+            } else {
+              currentNode = currentNode.next;
+            }
+          }
+
+          if (prevNode) {
+            const newNode = new Node(value, prevNode.next);
+            prevNode.next = newNode;
           }
         }
       }
+
     }
 
     return this;
@@ -136,14 +157,14 @@ export class LinkedList {
    */
   delete(value: any) {
 
-    if(!this.head) {
+    if (!this.head) {
       return null
     }
 
     let deletedNode = null;
 
     // 查看head是不是需要删除的node
-    while(this.head && this.head.value === value) {
+    while (this.head && this.head.value === value) {
       deletedNode = this.head;
       this.head = this.head.next;
     }
@@ -162,7 +183,7 @@ export class LinkedList {
     }
 
     // 检查当前tail是否为需要删除的node，如果是，则将tail指向current
-    if((this.tail as Node).value === value) {
+    if ((this.tail as Node).value === value) {
       this.tail = currentNode;
     }
 
@@ -177,9 +198,9 @@ export class LinkedList {
     let deletedNode = null;
     const headNode = this.head;
 
-    if(headNode !== null) {
+    if (headNode !== null) {
       deletedNode = headNode
-      if(headNode === this.tail) {
+      if (headNode === this.tail) {
         this.head = null;
         this.tail = null;
       } else {
@@ -197,16 +218,16 @@ export class LinkedList {
   public deleteTail(): Node | null {
     let deletedNode = null;
 
-    if(this.head !== null) {
-      if(this.head === this.tail) {
+    if (this.head !== null) {
+      if (this.head === this.tail) {
         deletedNode = this.head;
         this.head = null;
         this.tail = null;
       }
       else {
         let currentNode = this.head;
-        while(currentNode.next !== null) {
-          if(currentNode.next.next === null) {
+        while (currentNode.next !== null) {
+          if (currentNode.next.next === null) {
             deletedNode = currentNode.next.next
             currentNode.next = null;
           }
@@ -232,7 +253,7 @@ export class LinkedList {
     let result = [];
     let currentNode = this.head;
 
-    while(currentNode !== null) {
+    while (currentNode !== null) {
       result.push(currentNode.value);
       currentNode = currentNode.next;
     }
@@ -240,7 +261,7 @@ export class LinkedList {
     return result;
   }
 
-  public toString(handler: (value: any) => string = (value) => {return `${value}`}): string {
+  public toString(handler: (value: any) => string = (value) => { return `${value}` }): string {
     return this.toArray().map((value) => {
       return handler(value);
     }).toString();

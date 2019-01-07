@@ -16,8 +16,6 @@ describe("LinkedList class", () => {
     expect(linkedList.tail).toBe(null)
   })
 
-
-
   describe("Method append()", () => {
     it("should be a chain method", () => {
       linkedList.append(1).append(2).append(3);
@@ -88,7 +86,7 @@ describe("LinkedList class", () => {
       expect(linkedList.toString()).toBe("2,1")
     })
 
-    it("should handle linkedlist.head linkedlist.tail correctly", () => {
+    it("should handle head & tail correctly", () => {
       linkedList.prepend(4).prepend(3).prepend(2).prepend(1).append(5);
       expect(linkedList.toString()).toBe("1,2,3,4,5")
       expect((linkedList.head as Node).value).toBe(1)
@@ -168,7 +166,7 @@ describe("LinkedList class", () => {
     })
   })
 
-  describe("Method deleteHead", () => {
+  describe("Method deleteHead()", () => {
     it("should delete head node and handle head & tail correctly", () => {
       linkedList.append(1).deleteHead();
 
@@ -184,7 +182,7 @@ describe("LinkedList class", () => {
     })
   })
 
-  describe("Method deleteTail", () => {
+  describe("Method deleteTail()", () => {
     it("should delete tail node and handle head & tail correctly", () => {
       linkedList.append(1).deleteTail();
       expect(linkedList.toString()).toBe("")
@@ -227,6 +225,44 @@ describe("LinkedList class", () => {
 
       // expect(prevNode).toBeDefined();
       // expect((prevNode as Node).value).toBe(2);
+    })
+  })
+
+  describe("Method insert()", () => {
+    it("should insert value after specified value by default", () => {
+      linkedList.append(1).append(2).append(1).append(3);
+      linkedList.insert(5, 1);
+
+      expect(linkedList.toString()).toBe("1,5,2,1,3");
+      expect((linkedList.head as Node).value).toBe(1)
+      expect((linkedList.tail as Node).value).toBe(3)
+    })
+
+    it("should insert value after by default", () => {
+      linkedList.append(1).append(2).append(1).append(3);
+      linkedList.insert(5, 3);
+
+      expect(linkedList.toString()).toBe("1,2,1,3,5");
+      expect((linkedList.head as Node).value).toBe(1)
+      expect((linkedList.tail as Node).value).toBe(5)
+    })
+
+    it("should insert value before specified value if transmit 'before'", () => {
+      linkedList.append(1).append(2).append(1).append(3);
+      linkedList.insert(5, 1, "before");
+
+      expect(linkedList.toString()).toBe("5,1,2,1,3");
+      expect((linkedList.head as Node).value).toBe(5)
+      expect((linkedList.tail as Node).value).toBe(3)
+    })
+
+    it("should insert value before the tail", () => {
+      linkedList.append(1).append(2).append(1).append(3);
+      linkedList.insert(5, 3, "before");
+
+      expect(linkedList.toString()).toBe("1,2,1,5,3");
+      expect((linkedList.head as Node).value).toBe(1)
+      expect((linkedList.tail as Node).value).toBe(3)
     })
   })
 
