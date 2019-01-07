@@ -32,7 +32,8 @@
     "semantic-release": "semantic-release",
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
     "precommit": "lint-staged",
-    "travis-deploy-once": "travis-deploy-once"
+    "travis-deploy-once": "travis-deploy-once",
+    "format": "prettier 'src/**/*.js' 'src/**/*.jsx' 'src/**/*.ts' 'src/**/*.tsx' 'src/**/*.scss' 'src/**/*.css' --write"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [

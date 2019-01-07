@@ -15,10 +15,6 @@
 - isEmpty
 - toString
 - toArray
-
-未完成（WIP）：
-
-- findPrevious
 - insert
 
 ## 复杂度

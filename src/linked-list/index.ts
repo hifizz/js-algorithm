@@ -5,8 +5,8 @@ export class LinkedList {
   public tail: Node | null
 
   constructor() {
-    this.head = null;
-    this.tail = null;
+    this.head = null
+    this.tail = null
   }
 
   /**
@@ -15,21 +15,21 @@ export class LinkedList {
    * @returns {LinkedList} 当前链表
    */
   public append(value: any): LinkedList {
-    const newNode = new Node(value);
+    const newNode = new Node(value)
 
     if (!this.head) {
-      this.head = newNode;
-      this.tail = newNode;
+      this.head = newNode
+      this.tail = newNode
 
-      return this;
+      return this
     }
 
     // 给尾节点的next赋值为newNode
-    (this.tail as Node).next = newNode;
+    ;(this.tail as Node).next = newNode
     // 把尾节点设为newNode
-    (this.tail as Node) = newNode;
+    ;(this.tail as Node) = newNode
 
-    return this;
+    return this
   }
 
   /**
@@ -38,18 +38,17 @@ export class LinkedList {
    * @returns {LinkedList} 当前链表
    */
   public prepend(value: any): LinkedList {
-    const newNode = new Node(value);
+    const newNode = new Node(value)
 
     if (!this.head) {
-      this.head = newNode;
-      this.tail = newNode;
-    }
-    else {
-      newNode.next = this.head;
-      this.head = newNode;
+      this.head = newNode
+      this.tail = newNode
+    } else {
+      newNode.next = this.head
+      this.head = newNode
     }
 
-    return this;
+    return this
   }
 
   /**
@@ -58,95 +57,70 @@ export class LinkedList {
    * @returns {INode|null} 找到的节点或者null
    */
   public find(value: any): Node | null {
-    let currentNode = this.head;
+    let currentNode = this.head
     while (currentNode !== null && currentNode.value !== value) {
-      currentNode = currentNode.next;
+      currentNode = currentNode.next
     }
     /** currentNode === null 时会跳出while，直接return */
-    return currentNode;
-  }
-
-
-  // TODO: 未完成
-  public findPrevious(targetNode: Node) {
-    // 假设targetNode === this.head 则没有前置节点
-    if (this.head !== null && this.head === targetNode) {
-      return null
-    }
-
-    let prevNode = null
-    let currentNode = this.head;
-
-    if (currentNode !== null) {
-      while (currentNode.next !== null) {
-        if (currentNode.next === targetNode) {
-          prevNode = currentNode
-        }
-        else {
-          currentNode = currentNode.next
-        }
-      }
-    }
-
-    return prevNode
+    return currentNode
   }
 
   /**
-   * TODO: 重新思考这个方法的实现
    * 在目标value节点之后（默认之后）插入值
    * @param {any} value 插入的值
    * @param {INode | null} targetNode 插入值的目标节点
    * @param {"before"|"after"} direction 插入的位置，
    */
-  insert(value: any, targetValue: any, direction: "before" | "after" = "after"): LinkedList | undefined {
+  insert(
+    value: any,
+    targetValue: any,
+    direction: 'before' | 'after' = 'after'
+  ): LinkedList | undefined {
     if (!value || !targetValue) {
-      return;
+      return
     }
 
-    if (direction === "after") {
-      let currentNode = this.head;
+    if (direction === 'after') {
+      let currentNode = this.head
 
       while (currentNode !== null && currentNode.value !== targetValue) {
-        currentNode = currentNode.next;
+        currentNode = currentNode.next
       }
 
       if (currentNode) {
-        const newNode = new Node(value, currentNode.next);
+        const newNode = new Node(value, currentNode.next)
         if (currentNode === this.tail) {
-          this.tail = newNode;
+          this.tail = newNode
         }
-        currentNode.next = newNode;
+        currentNode.next = newNode
       }
-    }
-    else {
-      let currentNode = this.head;
+    } else {
+      let currentNode = this.head
 
       if (currentNode) {
         if (targetValue === currentNode.value) {
           const newNode = new Node(value, this.head)
-          this.head = newNode;
+          this.head = newNode
         } else {
-
-          let prevNode = null;
+          let prevNode = null
           while (currentNode.next !== null) {
             if (currentNode.next.value === targetValue) {
-              prevNode = currentNode;
-              break;
+              prevNode = currentNode
+              break
             } else {
-              currentNode = currentNode.next;
+              currentNode = currentNode.next
             }
           }
 
           if (prevNode) {
-            const newNode = new Node(value, prevNode.next);
-            prevNode.next = newNode;
+            const newNode = new Node(value, prevNode.next)
+            prevNode.next = newNode
           }
         }
       }
-
     }
 
-    return this;
+    return this
   }
 
   /**
@@ -156,38 +130,36 @@ export class LinkedList {
    * @returns {INode|null} 返回最后一个被删除的节点，没有则返回null
    */
   delete(value: any) {
-
     if (!this.head) {
       return null
     }
 
-    let deletedNode = null;
+    let deletedNode = null
 
     // 查看head是不是需要删除的node
     while (this.head && this.head.value === value) {
-      deletedNode = this.head;
-      this.head = this.head.next;
+      deletedNode = this.head
+      this.head = this.head.next
     }
 
     // 上面确保了this.head不是要删除的节点
-    let currentNode = this.head;
+    let currentNode = this.head
 
     while (currentNode !== null && currentNode.next) {
       if (currentNode.next.value === value) {
-        deletedNode = currentNode.next;
-        currentNode.next = currentNode.next.next;
-      }
-      else {
-        currentNode = currentNode.next;
+        deletedNode = currentNode.next
+        currentNode.next = currentNode.next.next
+      } else {
+        currentNode = currentNode.next
       }
     }
 
     // 检查当前tail是否为需要删除的node，如果是，则将tail指向current
     if ((this.tail as Node).value === value) {
-      this.tail = currentNode;
+      this.tail = currentNode
     }
 
-    return deletedNode;
+    return deletedNode
   }
 
   /**
@@ -195,20 +167,20 @@ export class LinkedList {
    * @returns { Node | null } 被删除的头结点或者null
    */
   public deleteHead(): Node | null {
-    let deletedNode = null;
-    const headNode = this.head;
+    let deletedNode = null
+    const headNode = this.head
 
     if (headNode !== null) {
       deletedNode = headNode
       if (headNode === this.tail) {
-        this.head = null;
-        this.tail = null;
+        this.head = null
+        this.tail = null
       } else {
-        this.head = headNode.next ? headNode.next : null;
+        this.head = headNode.next ? headNode.next : null
       }
     }
 
-    return deletedNode;
+    return deletedNode
   }
 
   /**
@@ -216,54 +188,58 @@ export class LinkedList {
    * @returns { Node | null } 被删除的头结点或者null
    */
   public deleteTail(): Node | null {
-    let deletedNode = null;
+    let deletedNode = null
 
     if (this.head !== null) {
       if (this.head === this.tail) {
-        deletedNode = this.head;
-        this.head = null;
-        this.tail = null;
-      }
-      else {
-        let currentNode = this.head;
+        deletedNode = this.head
+        this.head = null
+        this.tail = null
+      } else {
+        let currentNode = this.head
         while (currentNode.next !== null) {
           if (currentNode.next.next === null) {
             deletedNode = currentNode.next.next
-            currentNode.next = null;
-          }
-          else {
-            currentNode = currentNode.next;
+            currentNode.next = null
+          } else {
+            currentNode = currentNode.next
           }
         }
-        this.tail = currentNode;
+        this.tail = currentNode
       }
     }
 
-    return deletedNode;
+    return deletedNode
   }
 
   /**
    * 查询链表是否为空
    */
   isEmpty(): boolean {
-    return this.head === null;
+    return this.head === null
   }
 
   public toArray(): any[] {
-    let result = [];
-    let currentNode = this.head;
+    let result = []
+    let currentNode = this.head
 
     while (currentNode !== null) {
-      result.push(currentNode.value);
-      currentNode = currentNode.next;
+      result.push(currentNode.value)
+      currentNode = currentNode.next
     }
 
-    return result;
+    return result
   }
 
-  public toString(handler: (value: any) => string = (value) => { return `${value}` }): string {
-    return this.toArray().map((value) => {
-      return handler(value);
-    }).toString();
+  public toString(
+    handler: (value: any) => string = value => {
+      return `${value}`
+    }
+  ): string {
+    return this.toArray()
+      .map(value => {
+        return handler(value)
+      })
+      .toString()
   }
 }
