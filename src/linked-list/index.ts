@@ -7,12 +7,16 @@ const stringifyDefault = (value: any) => {
 export class LinkedList {
   public head: Node | null
   public tail: Node | null
-  public length: number
+  private _length: number
 
   constructor() {
     this.head = null
     this.tail = null
-    this.length = 0
+    this._length = 0
+  }
+
+  get length() {
+    return this._length
   }
 
   /**
@@ -21,7 +25,7 @@ export class LinkedList {
    * @returns {LinkedList} 当前链表
    */
   public append(value: any): LinkedList {
-    this.length++
+    this._length++
 
     const newNode = new Node(value)
 
@@ -46,7 +50,7 @@ export class LinkedList {
    * @returns {LinkedList} 当前链表
    */
   public prepend(value: any): LinkedList {
-    this.length++
+    this._length++
 
     const newNode = new Node(value)
 
@@ -94,7 +98,7 @@ export class LinkedList {
       }
 
       if (currentNode) {
-        this.length++
+        this._length++
         const newNode = new Node(value, currentNode.next)
         if (currentNode === this.tail) {
           this.tail = newNode
@@ -106,7 +110,7 @@ export class LinkedList {
 
       if (currentNode) {
         if (targetValue === currentNode.value) {
-          this.length++
+          this._length++
           const newNode = new Node(value, this.head)
           this.head = newNode
         } else {
@@ -121,7 +125,7 @@ export class LinkedList {
           }
 
           if (prevNode) {
-            this.length++
+            this._length++
             const newNode = new Node(value, prevNode.next)
             prevNode.next = newNode
           }
@@ -148,7 +152,7 @@ export class LinkedList {
     // 查看head是不是需要删除的node
     while (this.head && this.head.value === value) {
       deletedNode = this.head
-      this.length--
+      this._length--
       this.head = this.head.next
     }
 
@@ -158,7 +162,7 @@ export class LinkedList {
     while (currentNode !== null && currentNode.next) {
       if (currentNode.next.value === value) {
         deletedNode = currentNode.next
-        this.length--
+        this._length--
         currentNode.next = currentNode.next.next
       } else {
         currentNode = currentNode.next
@@ -182,7 +186,7 @@ export class LinkedList {
     const headNode = this.head
 
     if (headNode !== null) {
-      this.length--
+      this._length--
       deletedNode = headNode
       if (this.head === this.tail) {
         this.head = null
@@ -205,7 +209,7 @@ export class LinkedList {
     if (this.head !== null) {
       if (this.head === this.tail) {
         deletedNode = this.head
-        this.length--
+        this._length--
         this.head = null
         this.tail = null
       } else {
@@ -213,7 +217,7 @@ export class LinkedList {
         while (currentNode.next !== null) {
           if (currentNode.next.next === null) {
             deletedNode = currentNode.next.next
-            this.length--
+            this._length--
             currentNode.next = null
           } else {
             currentNode = currentNode.next
