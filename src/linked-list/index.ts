@@ -15,7 +15,7 @@ export class LinkedList {
     this._length = 0
   }
 
-  get length() {
+  public get length() {
     return this._length
   }
 
