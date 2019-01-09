@@ -182,12 +182,35 @@ export class DoublyLinkedList {
   }
 
   // public insertAfter(value: any, index: number): void {
-  //   //
+
   // }
 
-  // public insertBefore(value: any, index: number): void {
-  //   //
-  // }
+  public insertBefore(value: any, index: number): void {
+    if (!this.head) {
+      return
+    }
+
+    let currNode: Node | null = this.head
+
+    let cursor = 0
+
+    let prevNode: Node | null = null
+
+    while (currNode) {
+      if (index === cursor) {
+        if (!prevNode) {
+          const newNode: Node = new Node(value, prevNode, this.head)
+          this.head = newNode
+        } else {
+          const newNode: Node = new Node(value, prevNode, currNode)
+          prevNode.next = newNode
+        }
+      }
+      prevNode = currNode
+      currNode = currNode.next
+      cursor++
+    }
+  }
 
   public toArray(): any[] {
     let result = []
