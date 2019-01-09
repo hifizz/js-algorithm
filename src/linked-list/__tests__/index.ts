@@ -14,22 +14,14 @@ describe('LinkedList class', () => {
     expect(linkedList).toBeInstanceOf(Object)
     expect(linkedList.head).toBe(null)
     expect(linkedList.tail).toBe(null)
+    expect(linkedList.length).toBe(0)
   })
 
   describe('Method append()', () => {
-    it('should be a chain method', () => {
-      linkedList
-        .append(1)
-        .append(2)
-        .append(3)
-      expect(linkedList.head).toBeDefined()
-      expect(linkedList.tail).toBeDefined()
-      expect((linkedList.head as Node).value).toBe(1)
-      expect((linkedList.tail as Node).value).toBe(3)
-    })
-
     it('should append a node to linkedlist', () => {
+      expect(linkedList.length).toBe(0)
       linkedList.append(1)
+      expect(linkedList.length).toBe(1)
 
       expect(linkedList.head).toBeDefined()
       expect(linkedList.head).toBeInstanceOf(Node)
@@ -42,6 +34,18 @@ describe('LinkedList class', () => {
       expect((linkedList.tail as Node).next).toBe(null)
 
       expect(linkedList.head).toBe(linkedList.tail)
+    })
+
+    it('should be a chain method', () => {
+      linkedList
+        .append(1)
+        .append(2)
+        .append(3)
+      expect(linkedList.head).toBeDefined()
+      expect(linkedList.tail).toBeDefined()
+      expect((linkedList.head as Node).value).toBe(1)
+      expect((linkedList.tail as Node).value).toBe(3)
+      expect(linkedList.length).toBe(3)
     })
 
     it('should append 2 values be linked', () => {
@@ -90,6 +94,7 @@ describe('LinkedList class', () => {
       linkedList.prepend(2)
 
       expect(linkedList.toString()).toBe('2,1')
+      expect(linkedList.length).toBe(2)
     })
 
     it('should handle head & tail correctly', () => {
@@ -102,6 +107,7 @@ describe('LinkedList class', () => {
       expect(linkedList.toString()).toBe('1,2,3,4,5')
       expect((linkedList.head as Node).value).toBe(1)
       expect((linkedList.tail as Node).value).toBe(5)
+      expect(linkedList.length).toBe(5)
     })
   })
 
@@ -152,6 +158,7 @@ describe('LinkedList class', () => {
 
     it('should return null if the list is empty()', () => {
       expect(linkedList.delete(1)).toBe(null)
+      expect(linkedList.length).toBe(0)
     })
 
     it('should delete nothing if not found value', () => {
@@ -162,6 +169,7 @@ describe('LinkedList class', () => {
 
       const deletedNode = linkedList.delete(6)
       expect(deletedNode).toBe(null)
+      expect(linkedList.length).toBe(3)
       expect((linkedList.head as Node).value).toBe(1)
       expect(((linkedList.head as Node).next as Node).value).toBe(2)
       expect((linkedList.tail as Node).value).toBe(3)
@@ -176,6 +184,7 @@ describe('LinkedList class', () => {
 
       const deletedNode = linkedList.delete(3)
       expect((deletedNode as Node).value).toBe(3)
+      expect(linkedList.length).toBe(2)
       expect((linkedList.head as Node).value).toBe(1)
       expect(((linkedList.head as Node).next as Node).value).toBe(2)
       expect((linkedList.tail as Node).value).toBe(2)
@@ -184,6 +193,7 @@ describe('LinkedList class', () => {
       linkedList.append(3)
 
       const deletedNode2 = linkedList.delete(1)
+      expect(linkedList.length).toBe(2)
       expect((deletedNode2 as Node).value).toBe(1)
       expect((linkedList.head as Node).value).toBe(2)
       expect((linkedList.tail as Node).value).toBe(3)
@@ -194,6 +204,7 @@ describe('LinkedList class', () => {
 
       expect(linkedList.head).toBe(null)
       expect(linkedList.tail).toBe(null)
+      expect(linkedList.length).toBe(0)
     })
   })
 
@@ -207,7 +218,7 @@ describe('LinkedList class', () => {
         .append(5)
       expect((linkedList.deleteHead() as Node).value).toBe(1)
       expect(linkedList.toString()).toBe('2,3,4,5')
-
+      expect(linkedList.length).toBe(4)
       expect((linkedList.head as Node).value).toBe(2)
       expect((linkedList.tail as Node).value).toBe(5)
     })
@@ -228,6 +239,7 @@ describe('LinkedList class', () => {
     it('should delete tail node and handle head & tail correctly', () => {
       linkedList.append(1).deleteTail()
       expect(linkedList.toString()).toBe('')
+      expect(linkedList.length).toBe(0)
       expect(linkedList.head).toBe(null)
       expect(linkedList.tail).toBe(null)
 
@@ -238,6 +250,7 @@ describe('LinkedList class', () => {
         .append(4)
         .append(5)
       linkedList.deleteTail()
+      expect(linkedList.length).toBe(4)
       expect(linkedList.toString()).toBe('1,2,3,4')
       expect((linkedList.head as Node).value).toBe(1)
       expect((linkedList.tail as Node).value).toBe(4)
@@ -245,9 +258,7 @@ describe('LinkedList class', () => {
 
     it('should return null when list is empty', () => {
       expect(linkedList.deleteTail()).toBe(null)
-      linkedList.append(1)
-      linkedList.append(2)
-      expect((linkedList.deleteHead() as Node).value).toBe(1)
+      expect(linkedList.length).toBe(0)
     })
   })
 
@@ -279,6 +290,7 @@ describe('LinkedList class', () => {
       linkedList.insert(5, 1)
 
       expect(linkedList.toString()).toBe('1,5,2,1,3')
+      expect(linkedList.length).toBe(5)
       expect((linkedList.head as Node).value).toBe(1)
       expect((linkedList.tail as Node).value).toBe(3)
     })
@@ -291,6 +303,7 @@ describe('LinkedList class', () => {
         .append(3)
       linkedList.insert(5, 3)
 
+      expect(linkedList.length).toBe(5)
       expect(linkedList.toString()).toBe('1,2,1,3,5')
       expect((linkedList.head as Node).value).toBe(1)
       expect((linkedList.tail as Node).value).toBe(5)
@@ -304,6 +317,7 @@ describe('LinkedList class', () => {
         .append(3)
       linkedList.insert(5, 1, 'before')
 
+      expect(linkedList.length).toBe(5)
       expect(linkedList.toString()).toBe('5,1,2,1,3')
       expect((linkedList.head as Node).value).toBe(5)
       expect((linkedList.tail as Node).value).toBe(3)
@@ -317,6 +331,7 @@ describe('LinkedList class', () => {
         .append(3)
       linkedList.insert(5, 3, 'before')
 
+      expect(linkedList.length).toBe(5)
       expect(linkedList.toString()).toBe('1,2,1,5,3')
       expect((linkedList.head as Node).value).toBe(1)
       expect((linkedList.tail as Node).value).toBe(3)
@@ -329,6 +344,7 @@ describe('LinkedList class', () => {
         .append(3)
       linkedList.insert(5, 4, 'before')
 
+      expect(linkedList.length).toBe(3)
       expect(linkedList.toString()).toBe('1,2,3')
     })
 
@@ -337,11 +353,13 @@ describe('LinkedList class', () => {
       expect(linkedList.toString()).toBe('')
       expect(linkedList.head).toBe(null)
       expect(linkedList.tail).toBe(null)
+      expect(linkedList.length).toBe(0)
 
       linkedList.insert(5, 3, 'before')
       expect(linkedList.toString()).toBe('')
       expect(linkedList.head).toBe(null)
       expect(linkedList.tail).toBe(null)
+      expect(linkedList.length).toBe(0)
     })
   })
 
@@ -354,6 +372,7 @@ describe('LinkedList class', () => {
       const reversaledList = linkedList.reversal()
       expect(reversaledList).toBeDefined()
       expect(reversaledList).toBeInstanceOf(LinkedList)
+      expect(linkedList.length).toBe(3)
       expect(reversaledList.toString()).toBe('3,2,1')
       expect((reversaledList.head as Node).value).toBe(3)
       expect((reversaledList.tail as Node).value).toBe(1)
@@ -366,6 +385,7 @@ describe('LinkedList class', () => {
       expect(reversaledList.toString()).toBe('')
       expect(reversaledList.head).toBe(null)
       expect(reversaledList.tail).toBe(null)
+      expect(linkedList.length).toBe(0)
     })
   })
 })
