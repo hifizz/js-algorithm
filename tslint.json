@@ -1,6 +1,16 @@
 {
-  "extends": [
-    "tslint-config-standard",
-    "tslint-config-prettier"
-  ]
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "linterOptions": {
+    "exclude": ["config/**/*.js", "node_modules/**/*.ts", "mock/**/*.js", "src/**/*.js"]
+  },
+  "rules": {
+    "ordered-imports": false,
+    "no-console": false,
+    "no-debugger": false,
+    "no-empty": false,
+    "object-literal-sort-keys": false,
+    "no-shadowed-variable": false,
+    "variable-name": false,
+    "no-namespace": false
+  }
 }

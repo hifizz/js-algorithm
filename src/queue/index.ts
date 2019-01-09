@@ -3,39 +3,39 @@
  */
 
 export class Queue {
-  private list: any[] = [];
+  private list: any[] = []
 
   constructor() {
-    this.list = [];
+    this.list = []
   }
 
   get length() {
-    return this.list.length;
+    return this.list.length
   }
 
-  isEmpty() {
-    return this.list.length === 0;
+  public isEmpty() {
+    return this.list.length === 0
   }
 
-  enqueue(item: any) {
-    this.list.push(item);
+  public enqueue(item: any) {
+    this.list.push(item)
   }
 
-  dequeue() {
-    if(this.list.length === 0) {
-      return null;
+  public dequeue() {
+    if (this.list.length === 0) {
+      return null
     }
-    return this.list.shift();
+    return this.list.shift()
   }
 
   /**
    * 查看首个节点
    */
-  peek() {
-    return this.list.length > 0 ? this.list[0] : null;
+  public peek() {
+    return this.list.length > 0 ? this.list[0] : null
   }
 
-  toString() {
-    return this.list.toString();
+  public toString() {
+    return this.list.toString()
   }
 }

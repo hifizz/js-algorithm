@@ -85,7 +85,7 @@ export class LinkedList {
    * @param {INode | null} targetNode 插入值的目标节点
    * @param {"before"|"after"} direction 插入的位置，
    */
-  insert(
+  public insert(
     value: any,
     targetValue: any,
     direction: 'before' | 'after' = 'after'
@@ -142,7 +142,7 @@ export class LinkedList {
    * @param {any} value
    * @returns {INode|null} 返回最后一个被删除的节点，没有则返回null
    */
-  delete(value: any) {
+  public delete(value: any) {
     if (!this.head) {
       return null
     }
@@ -254,12 +254,12 @@ export class LinkedList {
   /**
    * 查询链表是否为空
    */
-  isEmpty(): boolean {
+  public isEmpty(): boolean {
     return this.head === null
   }
 
   public toArray(): any[] {
-    let result = []
+    const result = []
     let currentNode = this.head
 
     while (currentNode !== null) {
