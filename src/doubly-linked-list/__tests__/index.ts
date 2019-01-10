@@ -234,19 +234,9 @@ describe('DoublyLinkedList', () => {
   //   it("should ", () => {})
   // })
 
-  describe('Method insertBefore()', () => {
-    it('should insert node after specify index', () => {
-      doublyLinkedList.append(3)
-      expect(doublyLinkedList.insertBefore(1, 0)).toBe(undefined)
-      expect(doublyLinkedList.toString()).toBe('1,3')
-      doublyLinkedList.insertBefore(2, 1)
-      expect(doublyLinkedList.toString()).toBe('1,2,3')
-    })
-
-    it('should return viod if list empty', () => {
-      expect(doublyLinkedList.insertBefore(1, 2)).toBeUndefined()
-    })
-  })
+  // describe("Method insertBefore()", () => {
+  //   it("should ", () => {})
+  // })
 
   describe('Method isEmpty() and Property size', () => {
     let doublyLinkedList = new DoublyLinkedList()
