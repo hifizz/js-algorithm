@@ -301,19 +301,22 @@ describe('DoublyLinkedList', () => {
   })
 
   describe('Method toArray()', () => {
-    it('should convert list to array', () => {
-      expect(doublyLinkedList.toArray()).toEqual([])
+    it('should ', () => {
+      expect(doublyLinkedList.toString()).toBe('')
 
       doublyLinkedList.append(1)
-      expect(doublyLinkedList.toArray()).toEqual([1])
+      expect(doublyLinkedList.toString()).toBe('1')
 
       doublyLinkedList.append(2).append(3)
-      expect(doublyLinkedList.toArray()).toEqual([1, 2, 3])
+      expect(doublyLinkedList.toString()).toBe('1,2,3')
+
+      const stringHandler = (value: any) => value
+      expect(doublyLinkedList.toString(stringHandler)).toBe('1,2,3')
     })
   })
 
   describe('Method toString()', () => {
-    it('should stringify list', () => {
+    it('should ', () => {
       expect(doublyLinkedList.toArray()).toEqual([])
 
       doublyLinkedList.append(1)
