@@ -16,24 +16,36 @@ export class DoublyLinkedList {
     this.tail = null
   }
 
+  /**
+   * 链表长度
+   */
   public get size(): number {
     return this._length
   }
 
+  /**
+   * 查看链表头结点
+   */
   public getHead() {
     return this.head
   }
 
+  /**
+   * 查看链表尾节点
+   */
   public getTail() {
     return this.tail
   }
 
+  /**
+   * 查看链表是否为空
+   */
   public isEmpty() {
     return this._length === 0
   }
 
   /**
-   * 向链表末尾添加值
+   * 向链表末尾添加节点
    * @param value 任意值
    * @returns {DoublyLinkedList} this 当前实例
    */
@@ -53,6 +65,11 @@ export class DoublyLinkedList {
     return this
   }
 
+  /**
+   * 向链表头添加节点
+   * @param value 任意值
+   * @returns {DoublyLinkedList} this 当前实例
+   */
   public prepend(value: any): DoublyLinkedList {
     this._length++
 
@@ -69,6 +86,7 @@ export class DoublyLinkedList {
   /**
    * 通过index移除节点
    * @param index 需要移除的节点的index
+   * @returns {Node|null} 被移除的节点，没有则为null
    */
   public remove(index: number): Node | null {
     if (!this.head || index < 0 || index >= this._length) {
@@ -106,7 +124,8 @@ export class DoublyLinkedList {
   }
 
   /**
-   * 移除head
+   * 移除头结点
+   * @returns {Node|null} 被移除的头节点，没有则为null
    */
   public removeHead(): Node | null {
     let deletedNode = null
@@ -125,7 +144,8 @@ export class DoublyLinkedList {
     return deletedNode
   }
   /**
-   * 移除tail
+   * 移除尾节点
+   * @returns {Node|null} 被移除的节点，没有则为null
    */
   public removeTail(): Node | null {
     if (!this.head) {
@@ -181,6 +201,11 @@ export class DoublyLinkedList {
     return findTarget
   }
 
+  /**
+   * 在目标index之后插入节点
+   * @param value 需要插入的值
+   * @param index 插入目标的索引值 [0 ~ size-1]
+   */
   public insertAfter(value: any, index: number): void {
     if (!this.head) {
       return
@@ -188,7 +213,6 @@ export class DoublyLinkedList {
 
     let currNode: Node | null = this.head
     let cursor = 0
-    // let prevNode: Node | null = null
 
     while (currNode) {
       if (index === cursor) {
@@ -209,9 +233,9 @@ export class DoublyLinkedList {
   }
 
   /**
-   * 在目标索引之前插入 node
+   * 在目标索引之前插入节点
    * @param value 要插入的值
-   * @param {number} index [0 ~ size-1] 插入目标的索引值
+   * @param {number} index 插入目标的索引值 [0 ~ size-1]
    */
   public insertBefore(value: any, index: number): void {
     if (!this.head || index < 0 || index >= this._length) {
@@ -242,6 +266,10 @@ export class DoublyLinkedList {
     }
   }
 
+  /**
+   * 将链表转化为数组形式
+   * @returns {any[]} 链表的数组形式
+   */
   public toArray(): any[] {
     let result = []
     let currentNode = this.head
@@ -254,6 +282,11 @@ export class DoublyLinkedList {
     return result
   }
 
+  /**
+   * 将链表转化为字符串形式
+   * @param handler 处理节点值的函数
+   * @returns {string} 链表的字符串形式
+   */
   public toString(
     handler: (value: any) => string = (value: any) => {
       return `${value}`
