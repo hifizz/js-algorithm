@@ -107,8 +107,8 @@ export class DoublyLinkedList {
         } else if (cursor === maxCursor) {
           this.removeTail()
         } else {
-          let prevNode = currNode.prev
-          let nextNode = currNode.next
+          const prevNode = currNode.prev
+          const nextNode = currNode.next
           ;(prevNode as Node).next = nextNode
           ;(nextNode as Node).prev = prevNode
           this._length--
@@ -271,7 +271,7 @@ export class DoublyLinkedList {
    * @returns {any[]} 链表的数组形式
    */
   public toArray(): any[] {
-    let result = []
+    const result = []
     let currentNode = this.head
 
     while (currentNode !== null) {

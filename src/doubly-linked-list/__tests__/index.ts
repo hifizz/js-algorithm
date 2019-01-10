@@ -305,7 +305,7 @@ describe('DoublyLinkedList', () => {
   })
 
   describe('Method isEmpty() and Property size', () => {
-    let doublyLinkedList = new DoublyLinkedList()
+    const doublyLinkedList = new DoublyLinkedList()
 
     it('should return isEmpty correctly', () => {
       const list: any = doublyLinkedList
