@@ -155,7 +155,7 @@ export class DoublyLinkedList {
   }
 
   /**
-   *
+   * 查找给定值的index
    * @param value 查找的值
    * @returns {number} value 对应的 index，未找到则为 -1
    */
@@ -181,30 +181,60 @@ export class DoublyLinkedList {
     return findTarget
   }
 
-  // public insertAfter(value: any, index: number): void {
-
-  // }
-
-  public insertBefore(value: any, index: number): void {
+  public insertAfter(value: any, index: number): void {
     if (!this.head) {
       return
     }
 
     let currNode: Node | null = this.head
-
     let cursor = 0
+    // let prevNode: Node | null = null
 
+    while (currNode) {
+      if (index === cursor) {
+        const newNode: Node = new Node(value, currNode, currNode.next)
+        currNode.next = newNode
+        this._length++
+        if (newNode.next === null) {
+          this.tail = newNode
+        } else {
+          newNode.next.prev = newNode
+        }
+        break
+      } else {
+        currNode = currNode.next
+        cursor++
+      }
+    }
+  }
+
+  /**
+   * 在目标索引之前插入 node
+   * @param value 要插入的值
+   * @param {number} index [0 ~ size-1] 插入目标的索引值
+   */
+  public insertBefore(value: any, index: number): void {
+    if (!this.head || index < 0 || index >= this._length) {
+      return
+    }
+
+    let currNode: Node | null = this.head
+    let cursor = 0
     let prevNode: Node | null = null
 
     while (currNode) {
       if (index === cursor) {
         if (!prevNode) {
           const newNode: Node = new Node(value, prevNode, this.head)
+          this.head.prev = newNode
           this.head = newNode
         } else {
           const newNode: Node = new Node(value, prevNode, currNode)
+          currNode.prev = newNode
           prevNode.next = newNode
         }
+        this._length++
+        break
       }
       prevNode = currNode
       currNode = currNode.next
