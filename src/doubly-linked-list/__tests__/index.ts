@@ -230,17 +230,73 @@ describe('DoublyLinkedList', () => {
     })
   })
 
-  // describe("Method insertAfter()", () => {
-  //   it("should ", () => {})
-  // })
+  describe('Method insertAfter()', () => {
+    it('should insert after index', () => {
+      const list: any = doublyLinkedList
+
+      doublyLinkedList.append(1)
+      expect(doublyLinkedList.insertAfter(2, 0)).toBe(undefined)
+      expect(doublyLinkedList.toString()).toBe('1,2')
+      expect(doublyLinkedList.size).toBe(2)
+      expect(list.head.value).toBe(1)
+      expect(list.tail.value).toBe(2)
+
+      expect(doublyLinkedList.insertAfter(3, 1)).toBe(undefined)
+      expect(doublyLinkedList.toString()).toBe('1,2,3')
+      expect(doublyLinkedList.size).toBe(3)
+      expect(list.head.value).toBe(1)
+      expect(list.head.prev).toBe(null)
+      expect(list.tail.value).toBe(3)
+      expect(list.tail.prev.value).toBe(2)
+      expect(list.tail.prev.prev.value).toBe(1)
+
+      doublyLinkedList.insertAfter(4, 1)
+      expect(doublyLinkedList.toString()).toBe('1,2,4,3')
+      expect(doublyLinkedList.size).toBe(4)
+      expect(list.head.value).toBe(1)
+      expect(list.tail.value).toBe(3)
+      expect(list.tail.prev.value).toBe(4)
+      expect(list.tail.prev.prev.value).toBe(2)
+    })
+
+    it('should return void if list is empty or pass an invalid index', () => {
+      doublyLinkedList.insertAfter(3, 0)
+      expect(doublyLinkedList.toString()).toBe('')
+      expect(doublyLinkedList.size).toBe(0)
+
+      doublyLinkedList
+        .append(1)
+        .append(3)
+        .append(5)
+
+      doublyLinkedList.insertAfter({ hello: 'world' }, -2)
+      expect(doublyLinkedList.toString()).toBe('1,3,5')
+      expect(doublyLinkedList.size).toBe(3)
+
+      doublyLinkedList.insertAfter('stackfizz', 3)
+      expect(doublyLinkedList.toString()).toBe('1,3,5')
+      expect(doublyLinkedList.size).toBe(3)
+    })
+  })
 
   describe('Method insertBefore()', () => {
     it('should insert node after specify index', () => {
+      const list: any = doublyLinkedList
+
       doublyLinkedList.append(3)
       expect(doublyLinkedList.insertBefore(1, 0)).toBe(undefined)
       expect(doublyLinkedList.toString()).toBe('1,3')
+      expect(list.head.value).toBe(1)
+      expect(list.head.prev).toBe(null)
+      expect(list.tail.value).toBe(3)
+      expect(list.tail.prev).toBe(list.head)
+
       doublyLinkedList.insertBefore(2, 1)
       expect(doublyLinkedList.toString()).toBe('1,2,3')
+      expect(list.head.value).toBe(1)
+      expect(list.head.prev).toBe(null)
+      expect(list.tail.value).toBe(3)
+      expect(list.tail.prev.value).toBe(2)
     })
 
     it('should return viod if list empty', () => {
@@ -324,13 +380,22 @@ describe('DoublyLinkedList', () => {
 
   describe('Method toString()', () => {
     it('should stringify list', () => {
-      expect(doublyLinkedList.toArray()).toEqual([])
+      expect(doublyLinkedList.toString()).toBe('')
 
       doublyLinkedList.append(1)
-      expect(doublyLinkedList.toArray()).toEqual([1])
+      expect(doublyLinkedList.toString()).toBe('1')
 
       doublyLinkedList.append(2).append(3)
-      expect(doublyLinkedList.toArray()).toEqual([1, 2, 3])
+      expect(doublyLinkedList.toString()).toBe('1,2,3')
+    })
+
+    it('should stringify list with passed handler', () => {
+      doublyLinkedList
+        .append(1)
+        .append(2)
+        .append(3)
+      const handler = (value: any) => value
+      expect(doublyLinkedList.toString(handler)).toBe('1,2,3')
     })
   })
 })
