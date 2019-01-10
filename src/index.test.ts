@@ -1,8 +1,10 @@
-import * as helper from './index'
+import * as magicBox from './index'
 
-describe("Lib export", () => {
-  it("should export function list as expect", () => {
-    expect(helper.LinkedList).toBeDefined();
-    expect(helper.Queue).toBeDefined();
+describe('Lib export', () => {
+  it('should export function list as expect', () => {
+    expect(magicBox.DoublyLinkedList).toBeDefined()
+    expect(magicBox.LinkedList).toBeDefined()
+    expect(magicBox.Queue).toBeDefined()
+    expect(magicBox.Stack).toBeDefined()
   })
 })
