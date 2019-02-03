@@ -169,7 +169,7 @@ export class LinkedList {
     let currentNode = this.head
 
     while (currentNode !== null && currentNode.next) {
-      if (currentNode.next.value === value) {
+      if (compare(currentNode.next.value)) {
         deletedNode = currentNode.next
         this._length--
         currentNode.next = currentNode.next.next
@@ -179,7 +179,7 @@ export class LinkedList {
     }
 
     // 检查当前tail是否为需要删除的node，如果是，则将tail指向current
-    if ((this.tail as Node).value === value) {
+    if (compare((this.tail as Node).value)) {
       this.tail = currentNode
     }
 
