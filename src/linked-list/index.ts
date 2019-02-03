@@ -26,13 +26,11 @@ export class LinkedList {
    */
   public append(value: any): LinkedList {
     this._length++
-
     const newNode = new Node(value)
 
     if (!this.head) {
       this.head = newNode
       this.tail = newNode
-
       return this
     }
 
@@ -68,13 +66,21 @@ export class LinkedList {
   /**
    * 根据value查找节点上第一个与value相等的节点，返回该节点或者null
    * @param value 查找的值
+   * @param compare 查找函数
    * @returns {INode|null} 找到的节点或者null
    */
-  public find(value: any): Node | null {
+  public find(value: any, compare?: (nodeValue: any) => boolean): Node | null {
     let currentNode = this.head
-    while (currentNode !== null && currentNode.value !== value) {
-      currentNode = currentNode.next
+    if (compare) {
+      while (currentNode !== null && !compare(currentNode.value)) {
+        currentNode = currentNode.next
+      }
+    } else {
+      while (currentNode !== null && currentNode.value !== value) {
+        currentNode = currentNode.next
+      }
     }
+
     /** currentNode === null 时会跳出while，直接return */
     return currentNode
   }
@@ -258,6 +264,9 @@ export class LinkedList {
     return this.head === null
   }
 
+  /**
+   * 将链表转化成数组显示
+   */
   public toArray(): any[] {
     const result = []
     let currentNode = this.head

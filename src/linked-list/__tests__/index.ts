@@ -148,6 +148,25 @@ describe('LinkedList class', () => {
       expect((findNode2 as Node).next).toBeDefined()
       expect(((findNode2 as Node).next as Node).value).toBe(2)
     })
+
+    it('should pass a compare function for finding target value', () => {
+      linkedList
+        .append(5)
+        .append({ key: 'stack', value: 'fizz' })
+        .append({ key: 123 })
+        .append(2)
+        .append(3)
+
+      const compare = (nodeValue: any): boolean => {
+        if (typeof nodeValue === 'object' && nodeValue.key) {
+          return nodeValue.key === 'stack'
+        } else {
+          return false
+        }
+      }
+
+      expect(linkedList.find('stack', compare))
+    })
   })
 
   describe('Method delete()', () => {
