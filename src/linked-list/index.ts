@@ -4,6 +4,8 @@ const stringifyDefault = (value: any) => {
   return `${value}`
 }
 
+export type ICompareFunction = (nodeValue: any) => boolean
+
 export class LinkedList {
   public head: Node | null
   public tail: Node | null
@@ -69,7 +71,7 @@ export class LinkedList {
    * @param compare 查找函数
    * @returns {INode|null} 找到的节点或者null
    */
-  public find(value: any, compare?: (nodeValue: any) => boolean): Node | null {
+  public find(value: any, compare?: ICompareFunction): Node | null {
     let currentNode = this.head
     if (compare) {
       while (currentNode !== null && !compare(currentNode.value)) {
@@ -148,15 +150,16 @@ export class LinkedList {
    * @param {any} value
    * @returns {INode|null} 返回最后一个被删除的节点，没有则返回null
    */
-  public delete(value: any) {
+  public delete(value: any, compare?: ICompareFunction) {
     if (!this.head) {
       return null
     }
 
     let deletedNode = null
+    compare = compare || ((nodeValue: any): boolean => nodeValue === value)
 
     // 查看head是不是需要删除的node
-    while (this.head && this.head.value === value) {
+    while (this.head && compare(this.head.value)) {
       deletedNode = this.head
       this._length--
       this.head = this.head.next
