@@ -13,7 +13,7 @@ module.exports = {
       'always',
       [
         /** WIP means Working in progress，used in GitLab usually  */
-        'WIP',
+        'wip',
         /** Merge branch */
         'merge',
         'build',
