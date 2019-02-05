@@ -8,6 +8,7 @@ export type ITraversalCallback = (value: any) => void
 export class BinarySearchNode extends BinaryTreeNode {
   /**
    * 中序遍历
+   * 左 - 中 - 右
    * @param node
    * @param callback
    */
@@ -26,6 +27,7 @@ export class BinarySearchNode extends BinaryTreeNode {
 
   /**
    * 先序遍历
+   * 中 - 左 - 右
    * @param node
    * @param callback
    */
@@ -44,6 +46,7 @@ export class BinarySearchNode extends BinaryTreeNode {
 
   /**
    * 后序遍历
+   * 左 - 右 - 中
    * @param node
    * @param callback
    */
@@ -191,6 +194,48 @@ export class BinarySearchNode extends BinaryTreeNode {
           return null
         }
         return deleteNode || node
+      }
+    }
+  }
+
+  /**
+   * 查找最小值
+   * @param node {BinarySearchNode | null}
+   * @returns {null | any} null 则是root为空的情况，否则返回该最小值
+   */
+  public static findMin(node: BinarySearchNode | null): null | any {
+    // 此处主要处理root节点为空的情况
+    if (node === null) {
+      return null
+    } else {
+      // 如果有左子节点，则再次调用本函数
+      if (node.left) {
+        return this.findMin(node.left)
+      }
+      // 如果没有左子节点，则最小值为当前节点值，直接返回该值
+      else {
+        return node.value
+      }
+    }
+  }
+
+  /**
+   * 查找最大值
+   * @param node {BinarySearchNode | null}
+   * @returns {null | any} null 则是root为空的情况，否则返回该最大值
+   */
+  public static findMax(node: BinarySearchNode | null): null | any {
+    // 此处主要处理root节点为空的情况
+    if (node === null) {
+      return null
+    } else {
+      // 如果有右子节点，则再次调用本函数
+      if (node.right) {
+        return this.findMax(node.right)
+      }
+      // 如果没有左子节点，则最小值为当前节点值，直接返回该值
+      else {
+        return node.value
       }
     }
   }

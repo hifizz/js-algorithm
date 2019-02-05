@@ -66,6 +66,20 @@ export class BinarySearchTree {
   }
 
   /**
+   * 查找最小值
+   */
+  public findMin() {
+    return BinarySearchNode.findMin(this.root)
+  }
+
+  /**
+   * 查找最大值
+   */
+  public findMax() {
+    return BinarySearchNode.findMax(this.root)
+  }
+
+  /**
    * 二叉树的string表示
    */
   public toString() {
