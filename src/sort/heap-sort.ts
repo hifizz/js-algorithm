@@ -23,6 +23,7 @@ export function heapSort(arr: number[]) {
     for (let i = Math.floor(n / 2); i >= 0; i--) {
       maxHeapify(arr, i, n)
     }
+
     // 堆排序
     for (let j = 0; j < n; j++) {
       swap(arr, 0, n - 1 - j)
@@ -33,9 +34,11 @@ export function heapSort(arr: number[]) {
 }
 
 function maxHeapify(arr: number[], i: number, size: number) {
+  // 左子节点为2i + 1，右子节点为2i + 2
   const l = 2 * i + 1
-  const r = 2 * i + 2 // 左子节点为2i + 1，右子节点为2i + 2
+  const r = 2 * i + 2
   let largest = i
+
   // 若子节点比节点大，则标记
   if (l <= size && arr[l] > arr[largest]) {
     largest = l

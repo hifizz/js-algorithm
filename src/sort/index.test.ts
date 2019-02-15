@@ -26,7 +26,7 @@ describe('sort ways', () => {
   let sorted: number[]
 
   beforeEach(() => {
-    source = arr
+    source = [...arr]
     sorted = [...arr].sort((a, b) => a - b)
   })
 
@@ -64,7 +64,8 @@ describe('sort ways', () => {
   })
 
   it('radix sorting ', () => {
-    expect(radixSort(source)).toEqual(sorted)
+    radixSort(source)
+    expect(source).toEqual(sorted)
   })
 
   it('heap sorting ', () => {

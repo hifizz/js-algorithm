@@ -21,7 +21,7 @@
 - 堆排序（[heap-sort](./heap-sort.ts)）
 - 桶排序（[bucket-sort](./bucket-sort.ts)）
 - 计数排序（[counting-sort](./counting-sort.ts)）
-- 归并  排序（[merge-sort](./merge-sort.ts)）
+- 归并排序（[merge-sort](./merge-sort.ts)）
 
 ## 如何理解
 
