@@ -1,3 +1,5 @@
+import { insertionSort } from './insertion_sort'
+
 // 基数排序
 
 /**
@@ -6,6 +8,7 @@
  */
 
 // https://segmentfault.com/a/1190000012923917#articleHeader3
+
 export function radixSort(array: number[]) {
   const max = Math.max.apply(0, array)
   const times = getLoopTimes(max)
@@ -21,9 +24,9 @@ export function radixSort(array: number[]) {
   return array
 }
 
-// // 根据数字某个位数上的值得到桶的编号
+// 根据数字某个位数上的值得到桶的编号
 // function getBucketNumer(num: number, d: number) {
-//   return (num + "").reverse()[d];
+//   return Number(Array.from((num + "")).reverse()[d]);
 // }
 
 // 或者这个
@@ -44,12 +47,14 @@ function getLoopTimes(num: number) {
   return digits
 }
 
-function lsdRadixSort(
-  array: number[],
-  buckets: { [key: number]: number[] },
-  len: number,
-  radix: number
-) {
+/**
+ *
+ * @param array 数组
+ * @param buckets 桶集合
+ * @param len
+ * @param radix
+ */
+function lsdRadixSort(array: number[], buckets: any, len: number, radix: number) {
   // 入桶
   for (let i = 0; i < len; i++) {
     const el = array[i]
@@ -60,6 +65,8 @@ function lsdRadixSort(
   // 重写原桶
   for (let i = 0; i < 10; i++) {
     const bucket = buckets[i]
+    /** 对每个桶进行排序 */
+    insertionSort(bucket)
     for (const item of bucket) {
       array[k++] = item
     }
