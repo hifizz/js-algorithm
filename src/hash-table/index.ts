@@ -69,6 +69,10 @@ export class HashTable {
     return node ? node.value.value : undefined
   }
 
+  /**
+   * 删除指定的值
+   * @param key 需要删除的值
+   */
   public delete(key: string): any | null {
     const keyHash = this.hash(key)
     delete this.keys[key]
