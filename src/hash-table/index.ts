@@ -69,23 +69,19 @@ export class HashTable {
     return node ? node.value.value : undefined
   }
 
+  /**
+   * 删除指定的值
+   * @param key 需要删除的值
+   */
   public delete(key: string): any | null {
     const keyHash = this.hash(key)
     delete this.keys[key]
     const bucketLinkedList = this.buckets[keyHash]
-    const node = bucketLinkedList.find(key, (nodeValue: any) => {
+    const deleteNode = bucketLinkedList.delete(key, (nodeValue: any) => {
       return nodeValue.key === key
     })
 
-    if (node) {
-      const deleteNode = bucketLinkedList.delete(key, (nodeValue: any) => {
-        return nodeValue.key === key
-      })
-      console.log(deleteNode)
-      return deleteNode ? deleteNode.value.value : null
-    } else {
-      return null
-    }
+    return deleteNode ? deleteNode.value.value : null
   }
 
   /**
