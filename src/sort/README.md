@@ -1,6 +1,6 @@
 # 排序
 
-排序是一个很常见的需求。这里实现了各种常见的排序方法。
+这里实现了各种常见的排序方法。
 
 本模块致力于用最简洁的代码实现各种排序方式。
 
@@ -23,11 +23,8 @@
 - 计数排序（[counting-sort](./counting-sort.ts)）
 - 归并排序（[merge-sort](./merge-sort.ts)）
 
-## 如何理解
-
-### 冒泡排序
-
 ## 资源
 
+- 《算法与数据结构--C 语言描述》
 - [Algo-Practice/heapSort.md at master · qcer/Algo-Practice · GitHub](https://github.com/qcer/Algo-Practice/blob/master/Sort/heapSort.md)
 - [视频 | 手撕九大经典排序算法，看我就够了！ - 知乎](https://zhuanlan.zhihu.com/p/52884590?utm_source=wechat_session&utm_medium=social&utm_oi=37938096242688)

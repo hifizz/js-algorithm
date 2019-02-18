@@ -1,5 +1,5 @@
 // 选择排序
-// 选择排序的主要思想是是按位置
+// 选择排序的主要思想是是循环的次数从列表中选出最小的值，放置在当前假定最小的位置上。
 
 export function selectionSort(arr: number[]) {
   const len = arr.length
