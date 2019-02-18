@@ -18,6 +18,7 @@ export class BinarySearchTree {
   public insert(value: any) {
     const newNode = new BinarySearchNode(value)
     if (this.root === null) {
+      // newNode.parent = null
       this.root = newNode
     } else {
       BinarySearchNode.insertNode(this.root, newNode)
@@ -38,11 +39,12 @@ export class BinarySearchTree {
    * @param value {any} 需要移除的值
    */
   public remove(value: any) {
-    return BinarySearchNode.removeNode(null, this.root, value, this)
+    this.root = BinarySearchNode.removeNode(this.root, value)
   }
 
   /**
    * 中序遍历
+   * 中序遍历的顺序将会是从小到大 例如 1,3,5,7,8,9,10,11
    * @param callback {ITraversalCallback} 用户自定义的处理函数
    */
   public traversalInOrder(callback: ITraversalCallback) {

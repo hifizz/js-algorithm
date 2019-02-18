@@ -64,17 +64,32 @@ describe('BinarySearchTree', () => {
     beforeEach(() => {
       result = []
     })
-    it('should traversal tree previous order', () => {
+    // 中序遍历
+    it('should traversal tree in order', () => {
       binarySearchTree.traversalInOrder(traversalCallback)
       expect(result.toString()).toBe('1,5,7,8,9')
     })
+    // 前序序遍历
     it('should traversal tree previous order', () => {
       binarySearchTree.traversalPreviousOrder(traversalCallback)
       expect(result.toString()).toBe('9,8,7,1,5')
     })
-    it('should traversal tree previous order', () => {
+    // 后序遍历
+    it('should traversal tree post order', () => {
       binarySearchTree.traversalPostOrder(traversalCallback)
       expect(result.toString()).toBe('5,1,7,8,9')
+    })
+  })
+
+  describe('findMin()', () => {
+    it('should find the min value of the tree', () => {
+      expect(binarySearchTree.findMin()).toBe(1)
+    })
+  })
+
+  describe('findMax()', () => {
+    it('should find the Max value of the tree', () => {
+      expect(binarySearchTree.findMax()).toBe(9)
     })
   })
 
@@ -90,11 +105,21 @@ describe('BinarySearchTree', () => {
       binarySearchTree.remove(7)
       expect(binarySearchTree.toString()).toBe('9,8,1,5')
     })
+
     it('should remove root without error', () => {
       binarySearchTree.insert(7)
       expect(binarySearchTree.toString()).toBe('9,8,1,5,7')
       binarySearchTree.remove(9)
       expect(binarySearchTree.toString()).toBe('8,1,5,7')
+    })
+
+    it('should remove root node correctly', () => {
+      const bst = new BinarySearchTree()
+      bst.insert(9)
+      bst.remove(9)
+      expect(bst.root).toBeNull()
+      bst.insert(8)
+      expect((bst.root as BinarySearchNode).value).toBe(8)
     })
   })
 })

@@ -1,4 +1,5 @@
 import { BinarySearchNode } from '../BinarySearchNode'
+import { BinarySearchTree } from '..'
 
 describe('BinarySearchNode', () => {
   const rootNode = new BinarySearchNode(9)
@@ -106,8 +107,38 @@ describe('BinarySearchNode', () => {
   })
 
   describe('removeNode()', () => {
+    // const rootNode = new BinarySearchNode(18);
+    // BinarySearchNode.insertNode(rootNode, new BinarySearchNode(10))
+
     it('should remove value node', () => {
-      // BinarySearchNode.removeNode(null, rootNode, 7)
+      BinarySearchNode.removeNode(rootNode, 7)
+      expect(BinarySearchNode.search(rootNode, 7)).toBe(false)
+    })
+
+    it('should remove root node', () => {
+      const rootNode = new BinarySearchNode(9)
+      expect(BinarySearchNode.removeNode(rootNode, 9)).toBeNull()
+    })
+
+    it('should remove right node', () => {
+      BinarySearchNode.insertNode(rootNode, new BinarySearchNode(18))
+      const node = BinarySearchNode.removeNode(rootNode, 18)
+      // @ts-ignore
+      expect(BinarySearchNode.search(node, 18)).toBeFalsy()
+      BinarySearchNode.insertNode(rootNode, new BinarySearchNode(18))
+      expect(BinarySearchNode.search(rootNode, 18)).toBe(true)
+    })
+
+    it('should remove node just right node', () => {
+      const node = BinarySearchNode.removeNode(rootNode, 11)
+      // @ts-ignore
+      expect(BinarySearchNode.search(node, 11)).toBeFalsy()
+      // @ts-ignore
+      expect(rootNode.right.value).toBe(18)
+    })
+
+    it('should remove node = null', () => {
+      expect(BinarySearchNode.removeNode(null, 0)).toBe(null)
     })
   })
 })

@@ -1,5 +1,4 @@
 import { BinaryTreeNode } from '../BinaryTreeNode'
-import { BinarySearchTree } from '.'
 
 // 用于遍历树节点的回调函数
 // 遍历时，回调函数的参数是每个节点的value传递进去的
@@ -118,12 +117,14 @@ export class BinarySearchNode extends BinaryTreeNode {
   public static insertNode(node: BinarySearchNode, newNode: BinarySearchNode) {
     if (newNode.value < node.value) {
       if (node.left === null) {
+        // newNode.parent = node;
         node.left = newNode
       } else {
         this.insertNode(node.left, newNode)
       }
     } else {
       if (node.right === null) {
+        // newNode.parent = node;
         node.right = newNode
       } else {
         this.insertNode(node.right, newNode)
@@ -132,68 +133,44 @@ export class BinarySearchNode extends BinaryTreeNode {
   }
 
   /**
-   * TODO: 待优化
+   * TODO: 待优化，为了处理好移除根节点（主要是只有一个节点即根节点）的情况，这里采用了返回删除过后的节点树
    *
    * 移除与value相等的节点
    * @param parentNode
    * @param node
    * @param value
-   * @returns {BinarySearchNode | null} 被移除的节点或者 null
+   * @returns {BinarySearchNode | null} 被移除节点之后的节点树或者 null
    */
-  public static removeNode(
-    parentNode: BinarySearchNode | null,
-    node: BinarySearchNode | null,
-    value: any,
-    instance: BinarySearchTree // 主要为了解决 root 节点被移除的问题
-  ): BinarySearchNode | null {
+  public static removeNode(node: BinarySearchNode | null, value: any): BinarySearchNode | null {
     if (node === null) {
       return null
-    } else {
-      if (value < node.value) {
-        return this.removeNode(node, node.left, value, instance)
-      } else if (value > node.value) {
-        return this.removeNode(node, node.right, value, instance)
+    }
+    // 有node，且value在左边
+    else if (value < node.value) {
+      node.left = this.removeNode(node.left, value)
+      return node
+    }
+    // 有node，且value在右边
+    else if (value > node.value) {
+      node.right = this.removeNode(node.right, value)
+      return node
+    }
+    // 有node，且value等于当前node.value
+    else {
+      if (node.left === null && node.right === null) {
+        node = null
+        return null
+      }
+      if (node.left === null) {
+        node = node.right
+        return node
+      } else if (node.right === null) {
+        node = node.left
+        return node
       } else {
-        let deleteNode = null
-        if (parentNode === null) {
-          deleteNode = node
-          if (!node.right) {
-            instance.root = node.left
-          } else if (!node.left) {
-            instance.root = node.right
-          } else if (!node.left && !node.right) {
-            instance.root = null
-          } else {
-            BinarySearchNode.insertNode(node.right, node.left)
-            instance.root = node.right
-          }
-          // this.root = null;
-        } else if (node.value < parentNode.value) {
-          if (!node.right) {
-            parentNode.left = node.left
-          } else if (!node.left) {
-            parentNode.left = node.right
-          } else if (!node.left && !node.right) {
-            parentNode.left = null
-          } else {
-            parentNode.left = node.right
-            BinarySearchNode.insertNode(node.right, node.left)
-          }
-        } else if (node.value > parentNode.value) {
-          if (!node.right) {
-            parentNode.right = node.left
-          } else if (!node.left) {
-            parentNode.right = node.right
-          } else if (!node.left && !node.right) {
-            parentNode.right = null
-          } else {
-            parentNode.right = node.right
-            BinarySearchNode.insertNode(node.right, node.left)
-          }
-        } else {
-          return null
-        }
-        return deleteNode || node
+        BinarySearchNode.insertNode(node.right, node.left)
+        node = node.right
+        return node
       }
     }
   }
