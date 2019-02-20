@@ -1,4 +1,6 @@
-export { LinkedList } from './linked-list'
 export { Queue } from './queue'
 export { Stack } from './stack'
+export { LinkedList } from './linked-list'
 export { DoublyLinkedList } from './doubly-linked-list'
+export { HashTable } from './hash-table'
+export { BinarySearchTree } from './tree/binary-search-tree'
