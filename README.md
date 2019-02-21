@@ -9,26 +9,26 @@
 ## Roadmap
 
 - 链表
-  - [单向链表 (Linked-list)](./src/linked-list/README.md)
-  - [双向链表 (Doubly-linked-list)](./src/double-linked-list/README.md)
+  - [单向链表 (Linked-list)](./src/linked-list/index.ts)
+  - [双向链表 (Doubly-linked-list)](./src/double-linked-list/index.ts)
   - 循环链表 (Circular-linked-list)
 - 队列
-  - [普通队列 (Queue)](./src/queue/README.md)
+  - [普通队列 (Queue)](./src/queue/index.ts)
   - 优先队列 (Priority-queue)
-- [栈 (Stack)](./src/stack/README.md)
+- [栈 (Stack)](./src/stack/index.ts)
 - 树 (Tree)
   - 二叉树(Binary-tree)
-  - [查找树(Binary-search-tree)](src/tree/binary-search-tree/README.md)
+  - [查找树(Binary-search-tree)](src/tree/binary-search-tree/index.ts)
   - 平衡二叉树(AVL-tree)
   - 芬威克树(Fenwick-tree)
   - 红黑树(Red-black-tree)
   - 分段树(Segment-tree)
   - 字典树(Trie)
 - 哈希(Hashing)
-  - [哈希表(Hash-table)](src/hash-table/README.md)
+  - [哈希表(Hash-table)](src/hash-table/index.ts)
 - 堆(Heap)
 - 图(Graph)
 
-## Sources
+## Resources
 
 - [geeksforgeeks](https://www.geeksforgeeks.org/)
